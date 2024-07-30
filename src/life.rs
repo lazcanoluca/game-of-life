@@ -411,7 +411,7 @@ mod tests {
             ],
         ];
         let mut state = LifeState::new(seed);
-        let state = state.step();
+        state = state.step();
         assert_eq!(
             state.grid,
             vec![
