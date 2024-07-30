@@ -3,7 +3,7 @@ use macroquad::{
     shapes, window,
 };
 
-use crate::life::{CellState, LifeState};
+use crate::{cell::CellState, life::LifeState};
 
 impl From<CellState> for Color {
     fn from(value: CellState) -> Self {
@@ -24,7 +24,8 @@ impl View {
     pub async fn draw(&self, state: &LifeState) {
         window::clear_background(color::WHITE);
 
-        let cell_size = f32::min(window::screen_width(), window::screen_height()) / 20 as f32;
+        let cell_size = f32::min(window::screen_width(), window::screen_height())
+            / usize::max(state.grid.len(), state.grid[0].len()) as f32;
 
         for i in 0..state.grid.len() {
             for j in 0..state.grid[i].len() {
