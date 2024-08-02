@@ -10,6 +10,14 @@ impl LifeState {
         Self { grid: seed }
     }
 
+    pub fn new_with_random_seed(width: u32, height: u32) -> Self {
+        Self {
+            grid: (0..width)
+                .map(|_| (0..height).map(|_| Cell::new_with_random_state()).collect())
+                .collect(),
+        }
+    }
+
     fn count_neighbors(&self, row_index: u32, col_index: u32) -> u32 {
         let mut neighbors_count = 0;
 
