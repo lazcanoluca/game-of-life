@@ -18,6 +18,8 @@ async fn main() {
 
     let mut ticks_per_second = BASE_SPEED_TICKS_OVER_SECOND;
 
+    let mut paused = false;
+
     loop {
         gui.draw(&state).await;
 
@@ -29,6 +31,15 @@ async fn main() {
         if input::is_key_pressed(input::KeyCode::Down) {
             ticks_per_second -= if ticks_per_second > 1 { 1 } else { 0 };
             println!("Speed: {} ticks / second", ticks_per_second);
+        }
+
+        if input::is_key_pressed(input::KeyCode::Space) {
+            paused = !paused;
+            println!("{}", if paused { "Paused!" } else { "Running!" })
+        }
+
+        if paused {
+            continue;
         }
 
         if start.elapsed().as_millis() > 1000 / ticks_per_second {
