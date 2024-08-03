@@ -10,6 +10,11 @@ const BASE_SPEED_TICKS_OVER_SECOND: u128 = 5;
 #[macroquad::main("Conway's Game of Life")]
 async fn main() {
     let grid = Grid::new_with_random_seed(CELLS_HORIZONTAL, CELLS_VERTICAL);
+
+    run_game(grid).await;
+}
+
+async fn run_game(grid: Grid) {
     let mut state = LifeState::new(&grid);
 
     let gui = View::new();
