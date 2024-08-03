@@ -1,15 +1,91 @@
 use std::time::Instant;
 
-use game_of_life::{grid::Grid, gui::View, life::LifeState};
-use macroquad::input;
+use game_of_life::{
+    cell::{Cell, CellState},
+    grid::Grid,
+    gui::View,
+    life::LifeState,
+};
+use macroquad::{color, input, shapes, window};
 
-const CELLS_VERTICAL: usize = 100;
-const CELLS_HORIZONTAL: usize = 100;
+const CELLS_VERTICAL: usize = 5;
+const CELLS_HORIZONTAL: usize = 5;
 const BASE_SPEED_TICKS_OVER_SECOND: u128 = 5;
 
 #[macroquad::main("Conway's Game of Life")]
 async fn main() {
-    let grid = Grid::new_with_random_seed(CELLS_HORIZONTAL, CELLS_VERTICAL);
+    window::clear_background(color::WHITE);
+
+    let cell_size = f32::min(window::screen_width(), window::screen_height())
+        / usize::max(CELLS_HORIZONTAL, CELLS_VERTICAL) as f32;
+
+    let blank_matrix = vec![vec![Cell::new(CellState::Dead); CELLS_VERTICAL]; CELLS_VERTICAL];
+
+    let mut grid = Grid::new(&blank_matrix);
+
+    let mut selected = (0, 0);
+
+    loop {
+        for i in 0..grid.cells.len() {
+            for j in 0..grid.cells[0].len() {
+                shapes::draw_rectangle(
+                    i as f32 * cell_size,
+                    j as f32 * cell_size,
+                    cell_size,
+                    cell_size,
+                    grid.cells[i][j].state.into(),
+                )
+            }
+        }
+
+        shapes::draw_rectangle_lines(
+            selected.1 as f32 * cell_size,
+            selected.0 as f32 * cell_size,
+            cell_size,
+            cell_size,
+            cell_size / 20.0,
+            color::GRAY,
+        );
+
+        if input::is_key_pressed(input::KeyCode::Left) {
+            selected.1 -= if selected.1 > 0 { 1 } else { 0 }
+        }
+
+        if input::is_key_pressed(input::KeyCode::Right) {
+            selected.1 += if selected.1 < (grid.cells[0].len() - 1) {
+                1
+            } else {
+                0
+            }
+        }
+
+        if input::is_key_pressed(input::KeyCode::Up) {
+            selected.0 -= if selected.0 > 0 { 1 } else { 0 }
+        }
+
+        if input::is_key_pressed(input::KeyCode::Down) {
+            selected.0 += if selected.0 < (grid.cells.len() - 1) {
+                1
+            } else {
+                0
+            }
+        }
+
+        if input::is_key_pressed(input::KeyCode::Tab) {
+            grid.cells[selected.1][selected.0].toggle();
+        }
+
+        if input::is_key_pressed(input::KeyCode::R) {
+            grid = Grid::new_with_random_seed(CELLS_HORIZONTAL, CELLS_VERTICAL);
+        }
+
+        if input::is_key_pressed(input::KeyCode::Space) {
+            println!("Begin!");
+            break;
+        }
+
+        window::next_frame().await;
+    }
 
     run_game(grid).await;
 }
