@@ -38,6 +38,12 @@ async fn main() {
             println!("{}", if paused { "Paused!" } else { "Running!" })
         }
 
+        if input::is_key_pressed(input::KeyCode::R) {
+            state = LifeState::new(&grid);
+            start = Instant::now();
+            println!("Reset!");
+        }
+
         if paused {
             continue;
         }
