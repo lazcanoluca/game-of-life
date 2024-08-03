@@ -2,6 +2,7 @@ use std::time::Instant;
 
 use game_of_life::{
     cell::{Cell, CellState},
+    grid::Grid,
     gui::View,
     life::LifeState,
 };
@@ -34,7 +35,7 @@ async fn main() {
         ],
         vec![Cell::new(CellState::Dead); 5],
     ];
-    let mut state = LifeState::new(blinker);
+    let mut state = LifeState::new(&Grid::new(&blinker));
 
     let gui = View::new();
 

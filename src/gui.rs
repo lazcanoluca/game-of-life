@@ -25,16 +25,16 @@ impl View {
         window::clear_background(color::WHITE);
 
         let cell_size = f32::min(window::screen_width(), window::screen_height())
-            / usize::max(state.grid.len(), state.grid[0].len()) as f32;
+            / usize::max(state.grid.cols_size(), state.grid.rows_size()) as f32;
 
-        for i in 0..state.grid.len() {
-            for j in 0..state.grid[i].len() {
+        for i in 0..state.grid.cells.len() {
+            for j in 0..state.grid.cells[i].len() {
                 shapes::draw_rectangle(
                     i as f32 * cell_size,
                     j as f32 * cell_size,
                     cell_size,
                     cell_size,
-                    state.grid[i][j].state.into(),
+                    state.grid.cells[i][j].state.into(),
                 )
             }
         }
