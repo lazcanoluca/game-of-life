@@ -13,7 +13,7 @@ When running the game, you will be presented with a blank grid. This is where yo
 - **[Tab]**: Toggle state of the selected cell
 - **[←] / [↑] / [↓] / [→]**: Move the selected cell
 - **[R]**: Randomize seed
-- **[Space]**: Start simulation
+- **[Enter]**: Start simulation
 
 Once the game is running, the following controls are available:
 

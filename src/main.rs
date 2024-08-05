@@ -108,7 +108,7 @@ async fn create_grid() -> Grid {
             grid.randomize();
         }
 
-        if input::is_key_pressed(input::KeyCode::Space) {
+        if input::is_key_pressed(input::KeyCode::Enter) {
             println!("Begin!");
             break;
         }
@@ -163,11 +163,7 @@ async fn run_game(grid: Grid) {
             println!("Reset!");
         }
 
-        if paused {
-            continue;
-        }
-
-        if start.elapsed().as_millis() > 1000 / ticks_per_second {
+        if !paused && start.elapsed().as_millis() > 1000 / ticks_per_second {
             state = state.step();
             start = Instant::now();
         }
