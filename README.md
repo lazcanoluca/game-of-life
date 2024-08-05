@@ -21,26 +21,6 @@ Once the game is running, the following controls are available:
 - **[↑] / [↓]**: Increase / decrease simulation speed by 1 tick per second
 - **[R]**: Reset the simulation to the seed state
 
-
-## Examples
-
-Some examples are provided to visualize some common Life patterns without running the main app. The examples provided are a [blinker](https://conwaylife.com/wiki/Blinker), a [glider](https://conwaylife.com/wiki/Glider) and a [pulsar](https://conwaylife.com/wiki/Pulsar).
-
-The examples can be run with:
-
-```bash
-cargo run --examples blinker
-```
-
-```bash
-cargo run --examples glider
-```
-
-```bash
-cargo run --examples pulsar
-```
-
-
 ## Implementation assumptions
 
 ### Universe size
