@@ -6,9 +6,9 @@ pub struct Grid {
 }
 
 impl Grid {
-    pub fn new(seed: &Vec<Vec<Cell>>) -> Self {
+    pub fn new(seed: &[Vec<Cell>]) -> Self {
         Self {
-            cells: seed.clone(),
+            cells: seed.to_owned(),
         }
     }
 

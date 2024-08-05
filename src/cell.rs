@@ -24,10 +24,7 @@ impl Cell {
 
     pub fn new_with_random_state() -> Self {
         Self {
-            state: CellState::iter()
-                .choose(&mut rand::thread_rng())
-                .unwrap()
-                .clone(),
+            state: CellState::iter().choose(&mut rand::thread_rng()).unwrap(),
         }
     }
 
