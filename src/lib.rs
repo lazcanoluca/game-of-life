@@ -1,3 +1,3 @@
 pub mod cell;
-pub mod gui;
+pub mod grid;
 pub mod life;

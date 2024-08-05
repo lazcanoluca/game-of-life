@@ -1,7 +1,15 @@
+use rand::seq::IteratorRandom;
+
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum CellState {
     Dead,
     Alive,
+}
+
+impl CellState {
+    pub fn iter() -> impl Iterator<Item = CellState> {
+        [CellState::Dead, CellState::Alive].into_iter()
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -12,6 +20,20 @@ pub struct Cell {
 impl Cell {
     pub fn new(state: CellState) -> Self {
         Self { state }
+    }
+
+    pub fn new_with_random_state() -> Self {
+        Self {
+            state: CellState::iter().choose(&mut rand::thread_rng()).unwrap(),
+        }
+    }
+
+    pub fn toggle(&mut self) {
+        self.state = if self.state == CellState::Alive {
+            CellState::Dead
+        } else {
+            CellState::Alive
+        }
     }
 }
 
