@@ -14,12 +14,10 @@ const CELLS_VERTICAL: usize = 20;
 const CELLS_HORIZONTAL: usize = 30;
 const BASE_SPEED_TICKS_OVER_SECOND: u128 = 5;
 
-// Define a new trait
 trait ToColor {
     fn to_color(&self) -> color::Color;
 }
 
-// Implement the trait for CellState
 impl ToColor for CellState {
     fn to_color(&self) -> color::Color {
         match self {
@@ -107,7 +105,6 @@ async fn create_grid() -> Grid {
         }
 
         if input::is_key_pressed(input::KeyCode::R) {
-            // grid = Grid::new_with_random_seed(CELLS_HORIZONTAL, CELLS_VERTICAL);
             grid.randomize();
         }
 
