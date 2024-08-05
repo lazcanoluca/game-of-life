@@ -20,6 +20,16 @@ impl Grid {
         self.cells.len()
     }
 
+    pub fn randomize(&mut self) {
+        self.cells = (0..(self.cells.len()))
+            .map(|_| {
+                (0..self.cells[0].len())
+                    .map(|_| Cell::new_with_random_state())
+                    .collect()
+            })
+            .collect();
+    }
+
     pub fn new_with_random_seed(width: usize, height: usize) -> Self {
         Self {
             cells: (0..(width))

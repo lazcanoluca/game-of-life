@@ -8,6 +8,15 @@ Clone and `cargo run`.
 
 ### Controls
 
+When running the game, you will be presented with a blank grid. This is where you can create the seed (initial state) of the game. The selected cell will be highlighted with a gray outline.
+
+- **[Tab]**: Toggle state of the selected cell
+- **[←] [↑] [↓] [→] Arrows**: Move the selected cell
+- **[R]**: Randomize seed
+- **[Space]**: Start simulation
+
+Once the game is running, the following controls are available:
+
 - **[Space]**: Pause and unpause simulation
 - **[↑] Up Arrow / [↓] Down Arrow**: Increase / decrease simulation speed by 1 tick per second
 - **[R]**: Reset the simulation to the seed state

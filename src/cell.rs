@@ -30,6 +30,14 @@ impl Cell {
                 .clone(),
         }
     }
+
+    pub fn toggle(&mut self) {
+        self.state = if self.state == CellState::Alive {
+            CellState::Dead
+        } else {
+            CellState::Alive
+        }
+    }
 }
 
 #[cfg(test)]
