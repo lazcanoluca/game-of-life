@@ -5,10 +5,13 @@ use game_of_life::{
     grid::Grid,
     life::LifeState,
 };
-use macroquad::{color, input, shapes, window};
+use macroquad::{
+    color, input, shapes,
+    window::{self, Conf},
+};
 
 const CELLS_VERTICAL: usize = 20;
-const CELLS_HORIZONTAL: usize = 20;
+const CELLS_HORIZONTAL: usize = 30;
 const BASE_SPEED_TICKS_OVER_SECOND: u128 = 5;
 
 // Define a new trait
@@ -26,7 +29,16 @@ impl ToColor for CellState {
     }
 }
 
-#[macroquad::main("Conway's Game of Life")]
+fn window_conf() -> Conf {
+    Conf {
+        window_title: "Conway's Game of Life".to_owned(),
+        window_width: 1200,
+        window_height: (1200.0 * (CELLS_VERTICAL as f64 / CELLS_HORIZONTAL as f64)) as i32,
+        ..Default::default()
+    }
+}
+
+#[macroquad::main(window_conf)]
 async fn main() {
     let grid = create_grid().await;
 
@@ -39,8 +51,7 @@ async fn create_grid() -> Grid {
 
     window::clear_background(color::WHITE);
 
-    let cell_size = f32::min(window::screen_width(), window::screen_height())
-        / usize::max(grid.cols_size(), grid.rows_size()) as f32;
+    let cell_size = window::screen_width() / grid.cols_size() as f32;
 
     let mut selected = (0, 0);
     window::clear_background(color::WHITE);
@@ -119,8 +130,7 @@ async fn run_game(grid: Grid) {
 
     window::clear_background(color::WHITE);
 
-    let cell_size = f32::min(window::screen_width(), window::screen_height())
-        / usize::max(state.grid.cols_size(), state.grid.rows_size()) as f32;
+    let cell_size = window::screen_width() / grid.cols_size() as f32;
 
     loop {
         for i in 0..state.grid.cells.len() {
